@@ -1,7 +1,7 @@
 <div class="user-button-container" #userButton (msClickOutside)="onClickOutside()">
   <button *ngIf="isLoggedIn$ | async" class="user-button" md-button (click)="toggleDropdown()" [class.open]="isOpen">
     <span fxLayout="row" fxLayoutAlign="start center">
-      <img class="avatar" src="{{user.photoURL ? user.photoURL : 'assets/img/avatars/noavatar.png'}}">
+      <img class="avatar" [src]="user.photoURL ? user.photoURL : 'assets/img/avatars/noavatar.png'">
       <span class="name" fxHide fxShow.gt-sm>{{user.displayName}}</span>
       <md-icon class="icon" fxHide fxShow.gt-sm>keyboard_arrow_down</md-icon>
     </span>

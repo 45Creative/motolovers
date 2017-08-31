@@ -2,15 +2,11 @@
 
 import * as functions from 'firebase-functions';
 
-exports.onPostWrite = functions.database.ref('/posts/published/{pushId}').onCreate(event => {
-  const counterRef = event.data.ref;
-  counterRef.set(new Date().getDate())
-  
-  const collectionRef = event.data.ref.parent;
-  
-    const post = event.data.val();
-    post.createdOn = new Date().getDate();
-    return event.data.adminRef.set(post);
+exports.onPostWrite = functions.database.ref('/posts/published/{pushId}').onWrite(event => {
+  if (!event.data.exists()) {
+    const ref = event.data.ref;
+    return ref.set(new Date().getTime());
+  }
 });
 
 /**

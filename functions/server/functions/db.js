@@ -2,10 +2,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const functions = require("firebase-functions");
 exports.onPostWrite = functions.database.ref('/posts/published/{pushId}').onWrite(event => {
-    if (collectionRef.exists() && !collectionRef.previous.exists()) {
-        const post = event.data.val();
-        post.createdOn = new Date().getDate();
-        return event.data.adminRef.set(post);
+    if (!event.data.exists()) {
+        const ref = event.data.ref;
+        return ref.set(new Date().getTime());
     }
 });
 /**

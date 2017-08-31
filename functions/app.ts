@@ -1,5 +1,8 @@
-const functions = require('firebase-functions');
-const admin = require('firebase-admin');
+'use strict';
+
+import * as functions from 'firebase-functions';
+
+import * as admin from 'firebase-admin';
 admin.initializeApp(functions.config().firebase);
 
 const express = require('express');
@@ -50,20 +53,20 @@ app.get('/hello', validateFirebaseIdToken, (req, res) => {
 exports.app = functions.https.onRequest(app);
 
 
-cons ref = admin.database().ref();
+const ref = admin.database().ref();
 
 exports.createdUserAccount = functions.auth.user().onCreate(event => {
   const uid = event.data.uid;
   const email = event.data.email;
-  const photoUrl = event.data.photoUrl || 'https://pickaface.net/assets/images/slides/slide2.png';
+  const photoURL = event.data.photoURL || 'https://pickaface.net/assets/images/slides/slide2.png';
 
   const newUserRef = ref.child(`/users/${uid}`);
   return newUserRef.set({
-    photoUrl = photoUrl,
-    email = email
+    photoURL: photoURL,
+    email: email
   });
 
-}
+});
 
 exports.deleteUserAccount = functions.auth.user().onDelete(event => {
   const uid = event.data.uid;
@@ -72,4 +75,4 @@ exports.deleteUserAccount = functions.auth.user().onDelete(event => {
     isDeleted: true
   });
 
-}
+});

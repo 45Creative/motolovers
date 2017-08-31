@@ -3,7 +3,7 @@
   "description": "Cloud Functions for Firebase",
   "dependencies": {
     "cookie-parser": "1.4.3",
-    "cors": "2.8.3",
+    "cors": "^2.8.4",
     "csv": "1.1.1",
     "elasticsearch": "13.2.0",
     "express": "4.15.3",
