@@ -1,0 +1,87 @@
+<div class="profile">
+
+  <div class="header mat-elevation-z2"></div>
+
+  <div class="header-container" fxLayout="row">
+
+    <div fxLayout="column" fxFlex="50%" fxLayoutAlign="end start">
+      <div class="avatar-container">
+
+        <div fxLayout="row">
+          <img class="avatar" src="assets/img/avatars/noavatar.png">
+        </div>
+        <div fxLayout="row" fxLayoutAlign="center center">
+          <button md-mini-fab (click)="openAvatarDialog()" class="camera" md-raised-button color="primary" mdTooltip="Change avatar!"
+            mdTooltipPosition="above">
+            <md-icon>photo_camera</md-icon>
+          </button>
+        </div>
+
+      </div>
+
+      <div class="user-name-container">
+        <span *ngIf="user" class="user-name">{{user.displayName}}</span>
+      </div>
+    </div>
+
+    <div fxLayout="column" fxFlex fxLayoutAlign="end end">
+      <div class="compose-container">
+        <button md-mini-fab (click)="openAvatarDialog()" class="compose" md-raised-button color="primary" mdTooltip="Edit photo!"
+          mdTooltipPosition="left">
+          <md-icon>mode_edit</md-icon>
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="content-container mat-elevation-z2" fxLayout="row" flexLayoutAlign="stretch">
+    <form #form="ngForm" (ngSubmit)="onProfileSubmit()" [formGroup]="profileForm">
+      <div fxLayout="column" fxLayoutAlign="start stretch">
+        <md-input-container>
+          <input mdInput placeholder="Username" type="text" name="username" required [(ngModel)]="username" formControlName="username">
+        </md-input-container>
+        <md-input-container>
+          <input mdInput placeholder="E-Mail" type="text" name="email" required [(ngModel)]="email" formControlName="email">
+        </md-input-container>
+
+        <div>
+          <md-list *ngIf="addresses.length >= 0">
+            <address *ngFor="let address of addresses">
+              St: {{address.street}}, {{address.number}}, zipcode: {{address.zipcode}}. {{address.city}} - {{address.country}}
+            </address>
+          </md-list>
+        </div>
+        <div>
+          <div class="button-row">
+            <button md-fab color="primary" (click)="addAddress()">
+              <md-icon class="material-icons">add_location</md-icon>
+            </button>
+          </div>
+        </div>
+
+        <button color="primary" md-raised-button [disabled]="!profileForm.valid">Save</button>
+        
+      </div>
+    </form>
+  </div>
+
+</div>
+
+<!--
+<md-card *ngFor="let prof of profile | async" class="flex-item post-card">
+    <md-card-header>
+      <md-card-subtitle>
+        {{prof.profileText}}
+      </md-card-subtitle>
+    </md-card-header>
+    <md-card-content>
+      <div>
+        <button *ngIf="showApproveButton && (prof.status == 0 || prof.status == 1)"
+                (click)="approveButtonClicked(post)" class="approve-button"
+                md-button color="primary">APPROVE</button>
+        <span class="profile-status" *ngIf="prof.status != 2">{{getDisplayStatus(prof.status)}}</span>
+      </div>
+    </md-card-content>
+  </md-card>
+-->

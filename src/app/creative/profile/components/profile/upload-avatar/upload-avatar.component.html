@@ -1,0 +1,42 @@
+<div class="inbox-compose">
+  <div md-dialog-content fxLayout="row" fxLayoutAlign="space-between center">
+    <span>New Email</span>
+    <button md-mini-fab md-dialog-close md-icon-button>
+      <md-icon>close</md-icon>
+    </button>
+  </div>
+
+  <div *ngIf="picture">
+    <div class="progress" style="margin-bottom: 0;">
+      <div class="progress-bar progress-bar-animated" [ngStyle]="{ 'width': picture?.progress + '%' }"></div>
+    </div>
+    Progress: {{picture?.name}} | {{picture?.progress}}% Complete
+  </div>
+
+  <label>
+    <input type="file" (change)="detectFiles($event)">
+  </label>
+  <!--
+  <div NgDropFiles
+       [picture]="picture"
+       class="well drop-zone">
+    <h4>Drop your picture here</h4>
+    <img src="/assets/images/drop-images.png"/>
+  </div>
+
+  <div class="content" md-dialog-content>
+
+  </div>
+  <div md-dialog-actions fxLayout="row">
+    <button md-dialog-close md-icon-button>
+      <md-icon>delete</md-icon>
+    </button>
+    -->
+  <div md-dialog-actions fxLayout="row">
+    <span fxFlex><!-- fill space --></span>
+    <button (click)="uploadImagesToFirebase()" class="send" md-raised-button color="primary">
+      Upload <md-icon>upload</md-icon>
+    </button>
+  </div>
+
+</div>

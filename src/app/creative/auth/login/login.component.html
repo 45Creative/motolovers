@@ -1,0 +1,29 @@
+<div fxLayout="row" fxLayoutAlign="center center" style="height: 100%;">
+  <div class="login mat-elevation-z12">
+    <form #form="ngForm" (ngSubmit)="onSigninSubmit()" [formGroup]="signinForm">
+      <div class="login-content" fxLayout="column" fxLayoutAlign="start stretch">
+          <md-input-container>
+            <input mdInput placeholder="E-Mail" type="text" name="email" required [(ngModel)]="email" formControlName="email">
+          </md-input-container>
+          <md-input-container>
+            <input mdInput placeholder="Password" type="password" name="password" required [(ngModel)]="password" formControlName="password">
+          </md-input-container>
+          <div class="extra-options" fxLayout="row" fxLayoutAlign="space-between center">
+            <md-checkbox class="remember-me">Remember Me</md-checkbox>
+            <a class="forgot-password" [routerLink]="['/forgot-password']">Forgot Password?</a>
+          </div>
+          <button color="primary" md-raised-button [disabled]="!signinForm.valid">SIGN IN</button>
+        <p class="note">Don't have an account?<br/> <a [routerLink]="['/register']">Click here to create one</a></p>
+      </div>
+    </form>
+    <p class="or">or</p>
+    <div class="login-content">
+      <div fxLayout="row" fxLayoutAlign="space-around center">
+        <button color="primary" md-mini-fab (ngClick)="googleLogin()"><md-icon>grade</md-icon></button>
+        <button color="primary" md-mini-fab (ngClick)="googleLogin()"><md-icon>grade</md-icon></button>
+        <button color="primary" md-mini-fab (ngClick)="googleLogin()"><md-icon>grade</md-icon></button>
+        <button color="primary" md-mini-fab (ngClick)="googleLogin()"><md-icon>grade</md-icon></button>
+      </div>
+    </div>
+  </div>
+</div>

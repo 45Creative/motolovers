@@ -1,0 +1,77 @@
+@import "../../../../styles/var";
+
+.i18n-button-container {
+  height: 100%;
+  position: relative;
+
+  .i18n-button {
+    height: 100%;
+    min-width: 72px;
+
+    .flag {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+    }
+
+    .name {
+      margin: 0 8px 0 10px;
+    }
+
+    .icon {
+      width: 16px;
+      height: 16px;
+      font-size: 16px;
+      transform: rotate(0);
+      transition: transform .25s cubic-bezier(.25,.8,.25,1);
+    }
+
+    &.open {
+      background: rgba(0, 0, 0, .05);
+
+      .icon {
+        transform: rotate(-180deg);
+      }
+    }
+  }
+
+  .dropdown {
+    background: white;
+    position: absolute;
+    top: $height__main-toolbar;
+    right: 0;
+    width: 100%;
+    min-width: 160px;
+    z-index: -1;
+    transform: translateY(-110%);
+    visibility: hidden;
+    transition: transform .4s cubic-bezier(.25,.8,.25,1), visibility .4s cubic-bezier(.25,.8,.25,1);
+
+    .content {
+      .list {
+
+        .item {
+          height: 48px;
+          padding: 0 16px;
+          position: relative;
+          cursor: pointer;
+
+          .flag {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+          }
+
+          .name {
+            margin: 0 8px 0 10px;
+          }
+        }
+      }
+    }
+
+    &.open {
+      transform: translateY(0);
+      visibility: visible;
+    }
+  }
+}

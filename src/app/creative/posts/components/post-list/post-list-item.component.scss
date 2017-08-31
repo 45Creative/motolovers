@@ -1,0 +1,21 @@
+@import "../../../../../styles/_var";
+
+$height__main-toolbar__plus_8px: $height__main-toolbar + 8px;
+
+:host {
+  display: block;
+  padding: $padding__main-container__level2;
+  height: calc(100% - #{$height__main-toolbar__plus_8px});
+  // background: url('~assets/img/backgrounds/9.jpg') no-repeat center center fixed;
+  // background-size: cover;
+}
+
+md-input-container {
+  margin: 8px 0;
+}
+
+.mat-card-actions {
+  .likes {
+    padding-left: 5px;
+  }
+}

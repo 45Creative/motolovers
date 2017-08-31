@@ -1,0 +1,28 @@
+<div class="i18n-button-container" #userButton (msClickOutside)="onClickOutside()">
+  <button class="i18n-button" md-button (click)="toggleDropdown()" [class.open]="isOpen">
+    <span fxLayout="row" fxLayoutAlign="start center">
+      <img class="flag" src="assets/img/flags/au-flag.png">
+      <span class="name" fxHide fxShow.gt-sm>English</span>
+      <md-icon class="icon" fxHide fxShow.gt-sm>keyboard_arrow_down</md-icon>
+    </span>
+  </button>
+
+  <div class="dropdown mat-elevation-z1" [class.open]="isOpen">
+    <div class="content">
+      <div class="list">
+        <div class="item" fxLayout="row" fxLayoutAlign="start center" md-ripple>
+          <img class="flag" src="assets/img/flags/au-flag.png">
+          <span class="name">En</span>
+        </div>
+        <div class="item" fxLayout="row" fxLayoutAlign="start center" md-ripple>
+          <img class="flag" src="assets/img/flags/pt-flag.png">
+          <span class="name">Pt/Br</span>
+        </div>
+        <div class="item" fxLayout="row" fxLayoutAlign="start center" md-ripple>
+          <img class="flag" src="assets/img/flags/es-flag.png">
+          <span class="name">Es</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

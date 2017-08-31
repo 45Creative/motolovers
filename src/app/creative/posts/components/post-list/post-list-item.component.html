@@ -1,0 +1,45 @@
+<md-card>
+  <md-card-header>
+    <img md-card-avatar src="/assets/img/avatars/3.png">
+    <span fxFlex></span>
+    <md-card-subtitle>
+      {{post.createdOn}}
+    </md-card-subtitle>
+    <md-card-title>{{post.displayName}}</md-card-title>
+    <button md-icon-button [mdMenuTriggerFor]="menu">
+      <md-icon>more_vert</md-icon>
+    </button>
+  </md-card-header>
+  <img md-card-image src="{{post.thumbnail}}">
+  <md-card-content>
+    <p>{{post.postText}}</p>
+  </md-card-content>
+  <md-divider></md-divider>
+  <md-card-actions>
+    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutWrap="wrap">
+      <button md-icon-button (click)="onLikePost(post, user)">
+        <md-icon>plus_one</md-icon>
+      </button>
+      <div fxLayout="column" class="likes">{{post.likes_count}}</div>
+      <span fxFlex></span>
+      <button md-icon-button>
+        <md-icon>comment</md-icon>
+      </button>
+      <button md-icon-button>
+        <md-icon>share</md-icon>
+      </button>
+    </div>
+  </md-card-actions>
+</md-card>
+
+
+<md-menu #menu="mdMenu">
+  <button md-menu-item (click)="openRemoveDialog(post)" *ngIf="post.created_uid === user.userId">
+    <md-icon>delete</md-icon>
+    <span>Delete</span>
+  </button>
+  <button md-menu-item disabled>
+    <md-icon>create</md-icon>
+    <span>Edit Post</span>
+  </button>
+</md-menu>
