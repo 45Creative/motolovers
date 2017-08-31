@@ -12,11 +12,11 @@ export const environment = {
 
 export const CONFIG: IConfig = {
   "firebaseConfig" : {
-    apiKey: "AIzaSyBG1Ezs1ZWHjDX04q7cG1VBMQBCmtsmkEE",
-    authDomain: "generics-343f9.firebaseapp.com",
-    databaseURL: "https://generics-343f9.firebaseio.com",
-    projectId: "generics-343f9",
-    storageBucket: "generics-343f9.appspot.com",
-    messagingSenderId: "1079932467747"
+    apiKey: "AIzaSyDiqE-wH9D4Nuo3UNYMsERCiAFFekAZl7M",
+    authDomain: "moto-lovers.firebaseapp.com",
+    databaseURL: "https://moto-lovers.firebaseio.com",
+    projectId: "moto-lovers",
+    storageBucket: "moto-lovers.appspot.com",
+    messagingSenderId: "489391068765"
   }
 };
