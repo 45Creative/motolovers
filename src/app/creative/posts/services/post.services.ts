@@ -27,7 +27,10 @@ export class PostService {
   loadPosts(): Observable<Post[]> {
     // Compose an observable based on the projectList:
 
-    return this.db.list('/posts/published',  {
+  //get the keys for the lib albums
+  const posts$ = this.db.list(`/posts/published`);
+
+    return this.db.list('/posts/published', {
       query: {
         orderByChild: 'createdOn'
       }
@@ -36,6 +39,7 @@ export class PostService {
       console.log(error);
       return Observable.of(null);
     });
+  
   }
 
   loadUserPosts(user: User): Observable<Post[]> {
@@ -57,18 +61,17 @@ export class PostService {
       });
   }
 
-  createPost(post: Post): Observable<any> {
+  createPost(post: Post): Observable<any>{
     return Observable.of(this.db.list('/posts/published').push(post).then(
       (ret) => {  //success
         if (ret.key){
           this.db.object('/users/' + post.created_uid + '/posts').update({[ret.key]: "published"});
           this.db.object('/posts/published/' + ret.key).update({id: ret.key});
         }
-        return this.db.object('/posts/published/' + ret.key);
+        return this.db.list('/posts/published')
       },
       (error: Error) => {//error
         console.log(error);
-        return null;
       }
     ));
   }

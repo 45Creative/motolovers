@@ -23,7 +23,7 @@ export class PostEffects {
     .ofType(fromPost.PostTypes.CREATE_POST)
     .map((action: fromPost.CreatePostAction) => action.payload)
     .switchMap(payload => this.postService.createPost(payload.post))
-    .map(res => new fromPost.CreatePostCompletedAction({post: res}))
+    .map(res => new fromPost.CreatePostCompletedAction({posts: res}))
     .catch(() => Observable.of({ type: fromPost.PostTypes.CREATE_POST_ERROR }));
 
   @Effect()

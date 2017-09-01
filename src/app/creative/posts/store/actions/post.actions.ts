@@ -76,7 +76,7 @@ export class CreatePostAction implements Action {
 export class CreatePostCompletedAction implements Action {
   type = PostTypes.CREATE_POST_COMPLETED;
 
-  constructor(public payload: { post: Post }) { }
+  constructor(public payload: {posts: Post[]}) { }
 }
 
 export class CreatePostErrorAction implements Action {

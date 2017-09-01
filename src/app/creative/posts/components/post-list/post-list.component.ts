@@ -31,6 +31,7 @@ export class PostListComponent implements OnInit {
   user$: Observable<User>;
   posts$: Observable<Post[]>;
   user: User;
+  posts: Post[];
 
   // Hide Snackbar
   autoHide: number = 3000;
@@ -41,7 +42,6 @@ export class PostListComponent implements OnInit {
     private store: Store<fromRoot.AppState>,
     private creativeStore: Store<fromCreative.CreativeState>
   ) {
-
     this.creativeStore.dispatch(
       new postActions.LoadPostAction()
     );
@@ -51,7 +51,6 @@ export class PostListComponent implements OnInit {
 
     this.user$ = this.store.select(fromRoot.getUser);
     this.posts$ = this.creativeStore.select(fromCreative.getPosts);
-
     this.user$.subscribe(afUser => {
       if(afUser)
         this.user = afUser;

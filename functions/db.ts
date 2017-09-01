@@ -3,10 +3,18 @@
 import * as functions from 'firebase-functions';
 
 exports.onPostWrite = functions.database.ref('/posts/published/{pushId}').onWrite(event => {
-  if (!event.data.exists()) {
-    const ref = event.data.ref;
-    return ref.set(new Date().getTime());
+  // Only edit data when it is first created.
+  if (event.data.previous.exists()) {
+    return;
   }
+  // Exit when the data is deleted.
+  if (!event.data.exists()) {
+    return;
+  }
+  // Grab the current value of what was written to the Realtime Database.
+  var today = new Date().toLocaleDateString();
+  return event.data.ref.child('createdOn').set(today);
+
 });
 
 /**

@@ -14,7 +14,7 @@
   </md-card>
 
   <ms-post-list-item
-    *ngFor="let post of posts$ | async"
+    *ngFor="let post of (posts$ | async)?.slice().reverse()"
     [post]="post"
     fxFlex="50">
   </ms-post-list-item>

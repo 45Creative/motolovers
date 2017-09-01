@@ -63,7 +63,7 @@ export function postReducer(
     case PostTypes.CREATE_POST: {
       return Object.assign({}, state, {
         post: action.payload.post,
-        posts: null,
+        posts: action.payload.posts,
         isLoadingPosts: false,
         error: null
       });
@@ -72,7 +72,7 @@ export function postReducer(
     case PostTypes.CREATE_POST_COMPLETED: {
       return Object.assign({}, state, {
         post: action.payload.post,
-        posts: null,
+        posts: action.payload.posts,
         isLoadingPosts: false,
         error: null
       });
