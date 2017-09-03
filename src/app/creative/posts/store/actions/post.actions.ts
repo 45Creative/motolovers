@@ -94,7 +94,7 @@ export class UpdatePostAction implements Action {
 export class UpdatePostCompletedAction implements Action {
   type = PostTypes.UPDATE_POST_COMPLETED;
 
-  constructor(public payload: {post: Post}) { }
+  constructor(public payload: {posts: Post[]}) { }
 }
 
 export class UpdatePostErrorAction implements Action {
@@ -112,7 +112,7 @@ export class RemovePostAction implements Action {
 export class RemovePostCompletedAction implements Action {
   type = PostTypes.REMOVE_POST_COMPLETED;
 
-  constructor(public payload: {post: Post}) { }
+  constructor(public payload: {posts: Post[]}) { }
 }
 
 export class RemovePostErrorAction implements Action {

@@ -22,15 +22,14 @@ export class AuthService {
     public db: AngularFireDatabase
   ) {
     this.afAuth.authState.subscribe(afUser => {
-      if(afUser) {
-        let user = new User(afUser);
+      if (afUser) {
+        const user = new User(afUser);
         afUser.getIdToken(false).then((token) => {
           user.idToken = token;
           this.store.dispatch(new auth.LoginCompletedAction({user: user}));
           this.store.dispatch(new auth.UserRoleCompletedAction({user: user}));
         });
-      }
-      else {
+      } else {
         // user not logged in
         this.store.dispatch(new auth.LogoutRequestedAction());
       }
@@ -38,7 +37,7 @@ export class AuthService {
   }
 
   getUserRoles(user: User): Observable<User> {
-    return this.db.object('/users/' + user.userId + "/roles")
+    return this.db.object('/users/' + user.userId + '/roles')
       .take(1)
       .map(roles => {
         user.roles = roles;

@@ -1,11 +1,11 @@
 <md-card>
   <md-card-header>
-    <img md-card-avatar src="/assets/img/avatars/3.png">
+    <img md-card-avatar src="{{post.authorPhotoURL}}">
     <span fxFlex></span>
     <md-card-subtitle>
-      {{post.createdOn}}
+      {{post.createdAt | date: 'dd/MM/yyyy'}}
     </md-card-subtitle>
-    <md-card-title>{{post.displayName}}</md-card-title>
+    <md-card-title>{{post.authorName}}</md-card-title>
     <button md-icon-button [mdMenuTriggerFor]="menu">
       <md-icon>more_vert</md-icon>
     </button>
@@ -34,7 +34,7 @@
 
 
 <md-menu #menu="mdMenu">
-  <button md-menu-item (click)="openRemoveDialog(post)" *ngIf="post.created_uid === user.userId">
+  <button md-menu-item (click)="openRemoveDialog(post)" *ngIf="post.createdBy === user.userId">
     <md-icon>delete</md-icon>
     <span>Delete</span>
   </button>

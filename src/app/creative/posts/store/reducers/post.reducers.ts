@@ -35,8 +35,6 @@ export function postReducer(
 
     case PostTypes.LOAD_POST: {
       return Object.assign({}, state, {
-        post: null,
-        posts: null,
         isLoadingPosts: true,
         error: null
       });
@@ -44,7 +42,6 @@ export function postReducer(
 
     case PostTypes.LOAD_POST_COMPLETED: {
       return Object.assign({}, state, {
-        post: null,
         posts: action.payload.posts,
         isLoadingPosts: false,
         error: null
@@ -63,7 +60,6 @@ export function postReducer(
     case PostTypes.CREATE_POST: {
       return Object.assign({}, state, {
         post: action.payload.post,
-        posts: action.payload.posts,
         isLoadingPosts: false,
         error: null
       });
@@ -71,7 +67,6 @@ export function postReducer(
 
     case PostTypes.CREATE_POST_COMPLETED: {
       return Object.assign({}, state, {
-        post: action.payload.post,
         posts: action.payload.posts,
         isLoadingPosts: false,
         error: null
@@ -88,22 +83,17 @@ export function postReducer(
     }
 
     case PostTypes.UPDATE_POST: {
-
       return Object.assign({}, state, {
         post: action.payload.post,
-        posts: null,
         isLoadingPosts: false,
         error: null
       });
     }
 
     case PostTypes.UPDATE_POST_COMPLETED: {
-
       const post = action.payload;
-
       return Object.assign({}, state, {
-        post: state.post,
-        posts: null,
+        posts: action.payload.posts,
         isLoadingPosts: false,
         error: null
       });
@@ -119,7 +109,6 @@ export function postReducer(
     }
 
     case PostTypes.REMOVE_POST: {
-
       return Object.assign({}, state, {
         post: action.payload.post,
         isLoadingPosts: false,
@@ -128,11 +117,9 @@ export function postReducer(
     }
 
     case PostTypes.REMOVE_POST_COMPLETED: {
-
       return Object.assign({}, state, {
-        post: action.payload.post,
         posts: state.posts.filter((post: Post) => {
-            return post.id !== action.payload.post.id;
+            return post !== action.payload.post;
           }),
         isLoadingPosts: false,
         error: null
@@ -149,7 +136,6 @@ export function postReducer(
     }
 
     case PostTypes.LIKE_POST: {
-      
       return Object.assign({}, state, {
         post: action.payload.post,
         isLoadingPosts: false,
@@ -158,7 +144,6 @@ export function postReducer(
     }
 
     case PostTypes.LIKE_POST_COMPLETED: {
-
       return Object.assign({}, state, {
         user: action.payload.user,
         post: action.payload.post,

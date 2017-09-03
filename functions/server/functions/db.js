@@ -11,8 +11,8 @@ exports.onPostWrite = functions.database.ref('/posts/published/{pushId}').onWrit
         return;
     }
     // Grab the current value of what was written to the Realtime Database.
-    var today = new Date().toLocaleDateString();
-    return event.data.ref.child('createdOn').set(today);
+    const today = new Date().toLocaleDateString();
+    return event.data.ref.child('createdAt').set(today);
 });
 /**
  * Copyright 2016 Google Inc. All Rights Reserved.
@@ -30,8 +30,8 @@ exports.onPostWrite = functions.database.ref('/posts/published/{pushId}').onWrit
  * limitations under the License.
  */
 // Keeps track of the length of the 'likes' child list in a separate property.
-exports.countlikechange = functions.database.ref('/posts/published/{pushId}/likes/{likeid}').onWrite(event => {
-    const collectionRef = event.data.ref.parent;
+exports.countlikechange = functions.database.ref('/posts/published/{postId}/likes/{userId}').onWrite(event => {
+    const collectionRef = event.data.ref;
     const countRef = collectionRef.child('likes_count');
     // Return the promise from countRef.transaction() so our function
     // waits for this async event to complete before it exits.

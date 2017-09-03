@@ -31,7 +31,7 @@ export class PostEffects {
     .ofType(fromPost.PostTypes.UPDATE_POST)
     .map((action: fromPost.UpdatePostAction) => action.payload)
     .switchMap(payload => this.postService.updatePost(payload.post))
-    .map(res => new fromPost.UpdatePostCompletedAction({post: res}))
+    .map(res => new fromPost.UpdatePostCompletedAction({posts: res}))
     .catch(() => Observable.of({ type: fromPost.PostTypes.UPDATE_POST_ERROR }));
 
   @Effect()
@@ -39,7 +39,7 @@ export class PostEffects {
     .ofType(fromPost.PostTypes.REMOVE_POST)
     .map((action: fromPost.RemovePostAction) => action.payload)
     .switchMap(payload => this.postService.deletePost(payload.post))
-    .map(res => new fromPost.RemovePostCompletedAction({post: res}))
+    .map(res => new fromPost.RemovePostCompletedAction({posts: res}))
     .catch(() => Observable.of({ type: fromPost.PostTypes.REMOVE_POST_ERROR }));
 
   @Effect()

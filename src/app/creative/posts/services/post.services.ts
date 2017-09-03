@@ -12,7 +12,10 @@ import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable  
 import * as postActions from '../store/actions/post.actions';
 import * as firebase from 'firebase/app';
 import * as states from '../store/state/post.state';
-import {postInitialState} from "../store/state/post.state";
+import {postInitialState} from '../store/state/post.state';
+
+// Get a reference to the database service
+const database = firebase.database();
 
 @Injectable()
 export class PostService {
@@ -25,32 +28,34 @@ export class PostService {
   }
 
   loadPosts(): Observable<Post[]> {
-    // Compose an observable based on the projectList:
-
-  //get the keys for the lib albums
-  const posts$ = this.db.list(`/posts/published`);
-
+    /*
+    const postData: Post[] = [];
+    const postsRef = database.ref('posts/published');
+    postsRef.once('value', snapshot => {
+        postData.push(snapshot.val());
+    });
+    console.log(postData);
+    return Observable.of(postData);
+    */
     return this.db.list('/posts/published', {
       query: {
-        orderByChild: 'createdOn'
+        orderByChild: 'createdAt'
       }
     })
     .catch(error => {
       console.log(error);
       return Observable.of(null);
     });
-  
   }
 
   loadUserPosts(user: User): Observable<Post[]> {
     return this.db.list('/users/' + user.userId + '/posts')
       .map((pids: any[]) => {
-        let posts: Post[] = [];
+        const posts: Post[] = [];
         pids.forEach(pid => {
           this.db.object('/posts/' + pid['$value'] + '/' + pid['$key']).take(1)
             .subscribe(q => {
-              console.log(q);
-              posts.push(q)
+              posts.push(q);
             });
         });
         return posts;
@@ -61,61 +66,90 @@ export class PostService {
       });
   }
 
-  createPost(post: Post): Observable<any>{
-    return Observable.of(this.db.list('/posts/published').push(post).then(
-      (ret) => {  //success
-        if (ret.key){
-          this.db.object('/users/' + post.created_uid + '/posts').update({[ret.key]: "published"});
-          this.db.object('/posts/published/' + ret.key).update({id: ret.key});
-        }
-        return this.db.list('/posts/published')
-      },
-      (error: Error) => {//error
-        console.log(error);
-      }
-    ));
+  createPost(post: Post): Observable<any> {
+
+    // Get a key for a new Post.
+    const newPostKey = database.ref().child('posts/published').push().key;
+
+    // Write the new post's data simultaneously in the posts list and the user's post list.
+    const updates = {};
+    updates['/posts/published/' + newPostKey] = post;
+    updates['/users/' + post.createdBy + '/posts/' + newPostKey] = 'published';
+
+    return Observable.of(
+      database.ref().update(updates).catch(error => {
+      console.log(error);
+      return Observable.of(null);
+    }));
+
   }
 
   updatePost(post: Post): Observable<any> {
-    let key: string = post["$key"];
-    return Observable.of(this.db.object('/posts/published').update({[key]: post}).then(
-      (ret) => {  //success
-        return this.db.object('/posts/published/' + key);
-        // this.store.dispatch(new postActions.UpdatePostCompletedAction({post: post}));
-      },
-      (error: Error) => {//error
-        console.log(error);
-        return null;
-      }
-    ));
+    const key: string = post['$key'];
+
+    const updates = {};
+    updates['/posts/published/' + key] = post;
+
+    return Observable.of(
+      database.ref().set(updates).catch(error => {
+      console.log(error);
+      return Observable.of(null);
+    }));
+
   }
 
   deletePost(post: Post): Observable<any> {
-    let key: string = post["$key"];
+    const key: string = post['$key'];
     post.status = PostStatus.INACTIVE;
+
+    const updates = {};
+    updates['/posts/unpublished/' + key] = post;
+    updates['/users/' + post.createdBy + '/posts/' + key] = 'unpublished';
+    updates['/posts/published/' + key] = null;
+
+    return Observable.of(
+      database.ref().update(updates).catch(error => {
+      console.log(error);
+      return Observable.of(null);
+    }));
+
+    /*
     return Observable.of(this.db.object('/posts/unpublished').update({[key]: post}).then(
-      (ret) => {  //success
-        this.db.object('/users/' + post.created_uid + '/posts').update({[key]: "unpublished"});
+      (ret) => {
+        this.db.object('/users/' + post.createdBy + '/posts').update({[key]: 'unpublished'});
         this.db.object('/posts/published/' + key).remove();
         return this.db.object('/posts/unpublished/' + key);
       },
-      (error: Error) => {//error
+      (error: Error) => {
         console.log(error);
         return null;
       }
     ));
+    */
   }
 
   likePost(post: Post, user: User): Observable<any> {
-    let key: string = post["$key"];
+    const key: string = post['$key'];
+
+    const updates = {};
+    updates['/posts/published/' + key +  '/likes/' + user.userId] = true;
+
+    return Observable.of(
+      database.ref().update(updates).catch(error => {
+      console.log(error);
+      return Observable.of(null);
+    }));
+  /*
     return Observable.of(this.db.object('/posts/published/' + key +  '/likes').update({[user.userId]: true}).then(
-      (ret) => {  //success
+      (ret) => {
         return this.db.object('/posts/published/' + key);
       },
-      (error: Error) => {//error
+      (error: Error) => {
         console.log(error);
         return null;
       }
     ));
+    */
   }
+
 }

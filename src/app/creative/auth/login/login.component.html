@@ -13,7 +13,7 @@
             <a class="forgot-password" [routerLink]="['/forgot-password']">Forgot Password?</a>
           </div>
           <button color="primary" md-raised-button [disabled]="!signinForm.valid">SIGN IN</button>
-        <p class="note">Don't have an account?<br/> <a [routerLink]="['/register']">Click here to create one</a></p>
+        <p class="note">Don't have an account?<br/> <a md-raised-button [routerLink]="['/register']">Click here to create one</a></p>
       </div>
     </form>
     <p class="or">or</p>

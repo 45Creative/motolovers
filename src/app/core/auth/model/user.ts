@@ -10,12 +10,12 @@ export class User {
   authState: firebase.User;
   roles: any[];
 
-  constructor(authState: firebase.User)
-  {
+  constructor(authState: firebase.User) {
     if (authState) {
       this.authState = authState;
       this.userId = authState.uid;
-      this.photoURL = authState.providerData[0].photoURL;
+      this.photoURL = authState.providerData[0].photoURL ? authState.providerData[0].photoURL :
+      'https://pickaface.net/assets/images/slides/slide2.png';
       this.email = authState.providerData[0].email;
       this.displayName = (authState.providerData[0].displayName ? authState.providerData[0].displayName : this.email);
     }
