@@ -1,0 +1,5 @@
+  <ms-comment-list-item
+    *ngFor="let comment of (comments$ | async)?.slice().reverse()"
+    [comment]="comment"
+    fxFlex="50">
+  </ms-comment-list-item>

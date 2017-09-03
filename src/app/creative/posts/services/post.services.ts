@@ -27,16 +27,7 @@ export class PostService {
   ) {
   }
 
-  loadPosts(): Observable<Post[]> {
-    /*
-    const postData: Post[] = [];
-    const postsRef = database.ref('posts/published');
-    postsRef.once('value', snapshot => {
-        postData.push(snapshot.val());
-    });
-    console.log(postData);
-    return Observable.of(postData);
-    */
+  loadPosts(): Observable<any> {
     return this.db.list('/posts/published', {
       query: {
         orderByChild: 'createdAt'

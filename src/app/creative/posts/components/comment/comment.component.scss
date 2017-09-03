@@ -1,0 +1,24 @@
+@import "../../../../../styles/var";
+
+$height__main-toolbar__plus_8px: $height__main-toolbar + 8px;
+
+:host {
+  display: block;
+  padding: 0;
+  height: calc(100% - #{$height__main-toolbar__plus_8px});
+  // background: url('~assets/img/backgrounds/9.jpg') no-repeat center center fixed;
+  // background-size: cover;
+}
+
+.post-card {
+  .mat-card-content {
+    textarea {
+      height: 200px;
+      width: 400px;
+    }
+  }
+}
+
+md-input-container {
+  margin: 8px 0;
+}
