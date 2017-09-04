@@ -1,9 +1,8 @@
-import { User } from '../../../core/auth/model';
 
-export class Post {
-  postText: string;
+export class Comment {
+  commentText: string;
   published?: boolean;
-  status?: PostStatus;
+  status?: CommentStatus;
   authorName?: string;
   authorPhotoURL?: string;
   createdBy?: string;
@@ -15,11 +14,11 @@ export class Post {
 
   constructor() {
     this.published = true;
-    this.status = PostStatus.SAVED;
+    this.status = CommentStatus.SAVED;
   }
 }
 
-export enum PostStatus {
+export enum CommentStatus {
   SAVED,
   SUBMITTED,
   APPROVED,

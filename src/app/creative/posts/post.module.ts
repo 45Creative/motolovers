@@ -10,8 +10,11 @@ import { EffectsModule } from '@ngrx/effects';
 import { AuthModule } from '../../core/auth/auth.module';
 
 import { PostService } from './services/post.services';
+import { CommentService } from './services/comment.services';
 import { PostEffects } from './store/effects/post.effects';
+import { CommentEffects } from './store/effects/comment.effects';
 import { postReducer } from './store/reducers/post.reducers';
+import { commentReducer } from './store/reducers/comment.reducers';
 
 import { PostComponent, PostListComponent, PostListItemComponent, PostConfirmDeleteComponent } from './components';
 
@@ -27,8 +30,9 @@ import { PostRoutingModule } from './post-routing.module';
     AuthModule,
     //store
     StoreModule.forFeature('post', postReducer),
+    StoreModule.forFeature('comment', commentReducer),
     //ngrx effects
-    EffectsModule.forFeature([PostEffects]),
+    EffectsModule.forFeature([PostEffects, CommentEffects]),
     //routeing
     PostRoutingModule
   ],
@@ -42,7 +46,8 @@ import { PostRoutingModule } from './post-routing.module';
     PostConfirmDeleteComponent
   ],
   providers: [
-    PostService
+    PostService,
+    CommentService
   ]
 })
 export class PostModule { }

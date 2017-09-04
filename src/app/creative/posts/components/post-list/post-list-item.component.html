@@ -30,7 +30,12 @@
       </button>
     </div>
   </md-card-actions>
-  <md-card-footer>
+  <md-card-footer *ngIf='post.comments'>
+      <ms-post-list-item
+      *ngFor="let comment of (posts$ | async)?.slice().reverse()"
+      [comment]="comment"
+      fxFlex="50">
+    </ms-post-list-item>
   </md-card-footer>
 </md-card>
 

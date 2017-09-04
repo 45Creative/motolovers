@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { fadeInAnimation } from '../../../../route.animation';
 import { MdDialog, MdSnackBar, MdSnackBarConfig } from '@angular/material';
 
-import { CommentConfirmDeleteComponent } from '../post-confirm-delete/comment-confirm-delete.component';
+import { CommentConfirmDeleteComponent } from '../comment-confirm-delete/comment-confirm-delete.component';
 
 import { Observable } from 'rxjs/Observable';
 
@@ -19,16 +19,16 @@ import { Comment, CommentStatus } from '../../model';
 
 @Component({
   selector: 'ms-comment-list-item',
-  templateUrl: './post-list-item.component.html',
-  styleUrls: ['./post-list-item.component.scss'],
+  templateUrl: './comment-list-item.component.html',
+  styleUrls: ['./comment-list-item.component.scss'],
   host: {
     "[@fadeInAnimation]": 'true'
   },
   animations: [ fadeInAnimation ]
 })
-export class PostListItemComponent implements OnInit {
+export class CommentListItemComponent implements OnInit {
 
-  @Input() post;
+  @Input() comment;
   autoHide: number = 3000;
 
   user$: Observable<User>;
@@ -37,7 +37,7 @@ export class PostListItemComponent implements OnInit {
   constructor(
     private store: Store<fromRoot.AppState>,
     private creativeStore: Store<fromCreative.CreativeState>,
-    public postDialog: MdDialog,
+    public commentDialog: MdDialog,
     private snackBar: MdSnackBar
   ) {
     this.user$ = this.store.select(fromRoot.getUser);
@@ -54,17 +54,17 @@ export class PostListItemComponent implements OnInit {
   openRemoveDialog(comment: Comment) {
     const config = new MdSnackBarConfig();
     config.duration = this.autoHide;
-    const dialogRef = this.postDialog.open(CommentConfirmDeleteComponent);
+    const dialogRef = this.commentDialog.open(CommentConfirmDeleteComponent);
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.creativeStore.dispatch(new commentActions.RemoveCommentAction({comment: comment}));
-        this.snackBar.open('Post Deleted', 'Delete', config);
+        this.snackBar.open('Comment Deleted', 'Delete', config);
       }
     });
   }
 
-  onLikePost(comment: Comment, user: User) {
-    this.creativeStore.dispatch(new commentActions.LikePostAction({comment: comment, user: user}));
+  onLikeComment(comment: Comment, user: User) {
+    this.creativeStore.dispatch(new commentActions.LikeCommentAction({comment: comment, user: user}));
   }
 
 }

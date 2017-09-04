@@ -1,4 +1,5 @@
 import { User } from '../../../core/auth/model';
+import { Comment } from '../model';
 
 export class Post {
   postText: string;
@@ -12,6 +13,7 @@ export class Post {
   updatedAt?: Date;
   approvedBy?: string;
   approvedAt?: Date;
+  comments?: Comment[];
 
   constructor() {
     this.published = true;

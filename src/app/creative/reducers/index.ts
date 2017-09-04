@@ -1,18 +1,22 @@
 import { createSelector, createFeatureSelector } from '@ngrx/store';
 
 import { PostState } from '../posts/store/state/post.state';
+import { CommentState } from '../posts/store/state/comment.state';
 import { ProfileState } from '../profile/store/state/profile.state';
 
 import * as fromPost from '../posts/store/reducers/post.reducers';
+import * as fromComment from '../posts/store/reducers/comment.reducers';
 import * as fromProfile from '../profile/store/reducers/profile.reducers';
 
 export interface CreativeState {
   post: PostState;
+  comment: CommentState;
   profile: ProfileState;
 }
 
 export const reducers = {
   post: fromPost.postReducer,
+  comment: fromComment.commentReducer,
   profile: fromProfile.profileReducer
 }
 
@@ -26,6 +30,17 @@ export const getPost            = createSelector(getPostState, fromPost.getPost)
 export const getPosts           = createSelector(getPostState, fromPost.getPosts);
 export const getIsLoadingPosts  = createSelector(getPostState, fromPost.getIsLoadingPosts);
 export const getError           = createSelector(getPostState, fromPost.getError);
+
+/**
+ *
+ * @param state
+ */
+export const getCommentState = (state: CreativeState) => state.comment;
+
+export const getComment            = createSelector(getCommentState, fromComment.getComment);
+export const getComments           = createSelector(getCommentState, fromComment.getComments);
+export const getIsLoadingComments  = createSelector(getCommentState, fromComment.getIsLoadingComments);
+export const getErrorComment       = createSelector(getCommentState, fromComment.getError);
 
 /**
  *

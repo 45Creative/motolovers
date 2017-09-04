@@ -44,39 +44,39 @@ export class CommentComponent implements OnInit {
         this.user = afUser;
       }
     });
-    this.post = new Comment();
-    this.createForm(this.post);
+    this.comment = new Comment();
+    this.createForm(this.comment);
   }
 
-  createForm(post: Comment) {
-    this.postForm = this.fb.group({
-      postText: [post.postText, Validators.required]
+  createForm(comment: Comment) {
+    this.commentForm = this.fb.group({
+      commentText: [comment.commentText, Validators.required]
     });
   }
 
   onSubmit() {
-    this.postForm.updateValueAndValidity();
-    if (this.postForm.invalid) {
+    this.commentForm.updateValueAndValidity();
+    if (this.commentForm.invalid) {
       return;
     }
-    const post: Comment = this.getCommentFromFormValue(this.postForm.value);
-    post.status = CommentStatus.APPROVED;
-    post.createdBy = this.user.userId;
-    post.authorName = this.user.displayName;
-    post.authorPhotoURL = this.user.photoURL;
-    this.saveComment(post);
+    const comment: Comment = this.getCommentFromFormValue(this.commentForm.value);
+    comment.status = CommentStatus.APPROVED;
+    comment.createdBy = this.user.userId;
+    comment.authorName = this.user.displayName;
+    comment.authorPhotoURL = this.user.photoURL;
+    this.saveComment(comment);
   }
 
-  getPostFromFormValue(formValue: any): Comment {
-    let post: Comment;
-    post = new Comment();
-    post.postText = formValue.postText;
-    return post;
+  getCommentFromFormValue(formValue: any): Comment {
+    let comment: Comment;
+    comment = new Comment();
+    comment.commentText = formValue.commentText;
+    return comment;
   }
 
-  savePost(post: Comment) {
-    this.creativeStore.dispatch(new postActions.CreateCommentAction({post: post}));
-    this.dialogRef.close('Post Saved');
+  saveComment(comment: Comment) {
+    this.creativeStore.dispatch(new commentActions.CreateCommentAction({comment: comment}));
+    this.dialogRef.close('Comment Saved');
   }
 
 }
