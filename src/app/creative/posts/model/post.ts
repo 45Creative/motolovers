@@ -13,7 +13,6 @@ export class Post {
   updatedAt?: Date;
   approvedBy?: string;
   approvedAt?: Date;
-  comments?: Comment[];
 
   constructor() {
     this.published = true;

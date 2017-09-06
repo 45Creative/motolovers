@@ -12,9 +12,10 @@ import * as fromRoot from '../../../../core/reducers';
 import * as fromCreative from '../../../reducers';
 
 import * as postActions from '../../store/actions/post.actions';
+import * as commentActions from '../../store/actions/comment.actions';
 
 import { User } from '../../../../core/auth/model';
-import { Post }     from '../../model';
+import { Post, Comment, PostComment } from '../../model';
 
 @Component({
   selector: 'ms-post-list',
@@ -30,6 +31,8 @@ export class PostListComponent implements OnInit {
 
   user$: Observable<User>;
   posts$: Observable<Post[]>;
+  comments$: Observable<Comment[]>;
+  postComments$: Observable<any>;
   user: User;
   posts: Post[];
 
@@ -45,15 +48,27 @@ export class PostListComponent implements OnInit {
     this.creativeStore.dispatch(
       new postActions.LoadPostAction()
     );
+    this.creativeStore.dispatch(
+      new commentActions.LoadCommentAction()
+    );
   }
 
   ngOnInit() {
 
     this.user$ = this.store.select(fromRoot.getUser);
     this.posts$ = this.creativeStore.select(fromCreative.getPosts);
+    this.comments$ = this.creativeStore.select(fromCreative.getComments);
+
     this.user$.subscribe(afUser => {
       if(afUser)
         this.user = afUser;
+    });
+
+    this.postComments$ = Observable.combineLatest(this.posts$, this.comments$, (posts, comments) => {
+      console.log(posts);
+      return posts.map(post => Object.assign({}, post, {
+        comments: comments.filter(comment => comment.post === post['$key'])
+      }));
     });
 
   }

@@ -1,3 +1,4 @@
+import { Post } from '../model';
 
 export class Comment {
   commentText: string;
@@ -11,6 +12,7 @@ export class Comment {
   updatedAt?: Date;
   approvedBy?: string;
   approvedAt?: Date;
+  post?: Post;
 
   constructor() {
     this.published = true;
