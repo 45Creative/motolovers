@@ -11,12 +11,23 @@ import { AuthModule } from '../../core/auth/auth.module';
 
 import { PostService } from './services/post.services';
 import { CommentService } from './services/comment.services';
+import { PostCommentsService } from './services/post-comments.services';
 import { PostEffects } from './store/effects/post.effects';
 import { CommentEffects } from './store/effects/comment.effects';
+import { PostCommentsEffects } from './store/effects/post-comments.effects';
 import { postReducer } from './store/reducers/post.reducers';
 import { commentReducer } from './store/reducers/comment.reducers';
+import { postCommentsReducer } from './store/reducers/post-comments.reducers';
 
-import { PostComponent, PostListComponent, PostListItemComponent, PostConfirmDeleteComponent } from './components';
+import { 
+  PostComponent, 
+  PostListComponent, 
+  PostListItemComponent, 
+  PostConfirmDeleteComponent,
+  CommentComponent,
+  CommentListComponent,
+  CommentListItemComponent,
+  CommentConfirmDeleteComponent } from './components';
 
 import { PostRoutingModule } from './post-routing.module';
 
@@ -31,8 +42,9 @@ import { PostRoutingModule } from './post-routing.module';
     //store
     StoreModule.forFeature('post', postReducer),
     StoreModule.forFeature('comment', commentReducer),
+    StoreModule.forFeature('postComment', postCommentsReducer),
     //ngrx effects
-    EffectsModule.forFeature([PostEffects, CommentEffects]),
+    EffectsModule.forFeature([PostEffects, CommentEffects, PostCommentsEffects]),
     //routeing
     PostRoutingModule
   ],
@@ -43,11 +55,16 @@ import { PostRoutingModule } from './post-routing.module';
     PostComponent,
     PostListComponent,
     PostListItemComponent,
-    PostConfirmDeleteComponent
+    PostConfirmDeleteComponent,
+    CommentComponent,
+    CommentListComponent,
+    CommentListItemComponent,
+    CommentConfirmDeleteComponent
   ],
   providers: [
     PostService,
-    CommentService
+    CommentService,
+    PostCommentsService
   ]
 })
 export class PostModule { }

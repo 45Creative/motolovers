@@ -1,7 +1,7 @@
 
 import { Comment, Post } from '../model';
 
-export class PostComment {
+export class PostComments {
   post: Post;
   comments: Comment[];
 }

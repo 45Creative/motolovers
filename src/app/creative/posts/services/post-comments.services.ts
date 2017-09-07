@@ -3,31 +3,26 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
 import '../../../rxjs-extensions';
-import { PostComment, Post, Comment } from '../model';
+import { PostComments, Post, Comment } from '../model';
 
 import * as fromCreative from '../../reducers';
 
 @Injectable()
-export class PostCommentService {
+export class PostCommentsService {
 
   constructor(
     private creativeStore: Store<fromCreative.CreativeState>
   ) {
   }
 
-  /*
-  loadCommnentsPosts(): Observable<PostComment[]> {
-
-    const posts$: Observable<Post[]> = this.creativeStore.select(fromCreative.getPosts);
-    const comments$: Observable<Comment[]> = this.creativeStore.select(fromCreative.getComments);
+  loadPostsComments(posts$, comments$): Observable<PostComments[]> {
 
     return Observable.combineLatest(posts$, comments$, (posts, comments) => {
-      return posts.map( post => Object.assign({}, post, {
+      return posts.map( post => Object.assign({}, {post: post}, {
         comments: comments.filter(comment => comment.post === post)
       }));
     });
 
   }
-  */
 
 }

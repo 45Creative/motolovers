@@ -12,7 +12,7 @@ const mailTransport = nodemailer.createTransport(`smtps://${gmailEmail}:${gmailP
 exports.sendEmailConfirmation = functions.database.ref('/users/{uid}').onWrite(event => {
     const snapshot = event.data;
     const val = snapshot.val();
-    if (!val.subscribedToMailingList) {
+    if (!val.subscribedToMailingList.changed('subscribedToMailingList')) {
         return;
     }
     const mailOptions = {
