@@ -39,13 +39,10 @@ import { PostRoutingModule } from './post-routing.module';
     MaterialComponentsModule,
     FlexLayoutModule,
     AuthModule,
-    //store
     StoreModule.forFeature('post', postReducer),
     StoreModule.forFeature('comment', commentReducer),
     StoreModule.forFeature('postComment', postCommentsReducer),
-    //ngrx effects
     EffectsModule.forFeature([PostEffects, CommentEffects, PostCommentsEffects]),
-    //routeing
     PostRoutingModule
   ],
   entryComponents: [

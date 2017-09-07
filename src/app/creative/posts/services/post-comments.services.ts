@@ -15,7 +15,7 @@ export class PostCommentsService {
   ) {
   }
 
-  loadPostsComments(posts$, comments$): Observable<PostComments[]> {
+  loadPostsComments(posts$: Post[], comments$: Comment[]): Observable<PostComments[]> {
 
     return Observable.combineLatest(posts$, comments$, (posts, comments) => {
       return posts.map( post => Object.assign({}, {post: post}, {

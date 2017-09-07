@@ -15,4 +15,4 @@ export const postInitialState: PostState = {
   isLoadingPosts: true,
   error: null,
   user: null
-}
+};

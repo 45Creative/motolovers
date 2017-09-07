@@ -3,7 +3,7 @@ import {Injectable} from '@angular/core';
 
 import { Post } from '../../model';
 import { User } from '../../../../core/auth/model';
-import { type } from "../../../../core/utils/utils";
+import { type } from '../../../../core/utils/utils';
 
 export const PostTypes = {
   LOAD_POST: type('[Post] -LOAD Requested-'),

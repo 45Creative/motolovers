@@ -1,6 +1,5 @@
 import { PostCommentsAction, PostCommentsTypes } from '../actions/post-comments.actions';
 import { PostCommentsState, postCommentsInitialState } from '../state/post-comments.state';
-import { Post } from '../../model';
 
 export function postCommentsReducer(
   state = postCommentsInitialState, action: PostCommentsAction): PostCommentsState {
@@ -8,8 +7,6 @@ export function postCommentsReducer(
 
     case PostCommentsTypes.LOAD_POST_COMMENTS: {
       return Object.assign({}, state, {
-        posts: action.payload.posts,
-        comments: action.payload.comments,
         isLoadingPostComments: true,
       });
     }
@@ -38,4 +35,4 @@ export function postCommentsReducer(
 
 export const getPostComments = (state: PostCommentsState) => state.postComments;
 export const getIsLoadingPostComments = (state: PostCommentsState) => state.isLoadingPostComments;
-export const getErrorPostComments = (state: PostCommentsState) => state.error;
+export const getError = (state: PostCommentsState) => state.error;

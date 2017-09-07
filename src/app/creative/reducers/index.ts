@@ -13,7 +13,7 @@ import * as fromProfile from '../profile/store/reducers/profile.reducers';
 export interface CreativeState {
   post: PostState;
   comment: CommentState;
-  postComments: PostCommentsState
+  postComments: PostCommentsState;
   profile: ProfileState;
 }
 
@@ -22,7 +22,7 @@ export const reducers = {
   comment: fromComment.commentReducer,
   postComments: fromPostComments.postCommentsReducer,
   profile: fromProfile.profileReducer
-}
+};
 
 /**
  *
@@ -54,7 +54,7 @@ export const getPostCommentsState = (state: CreativeState) => state.postComments
 
 export const getPostComments          = createSelector(getPostCommentsState, fromPostComments.getPostComments);
 export const getIsLoadingPostComments = createSelector(getPostCommentsState, fromPostComments.getIsLoadingPostComments);
-export const getErrorPostComments     = createSelector(getPostCommentsState, fromPostComments.getErrorPostComments);
+export const getErrorPostComments     = createSelector(getPostCommentsState, fromPostComments.getError);
 
 /**
  *

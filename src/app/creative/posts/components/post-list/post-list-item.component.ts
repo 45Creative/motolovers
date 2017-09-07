@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { fadeInAnimation } from "../../../../route.animation";
-import { MdDialog, MdSnackBar, MdSnackBarConfig } from "@angular/material";
+import { fadeInAnimation } from '../../../../route.animation';
+import { MdDialog, MdSnackBar, MdSnackBarConfig } from '@angular/material';
 
 import { PostConfirmDeleteComponent } from '../post-confirm-delete/post-confirm-delete.component';
 
@@ -10,10 +10,10 @@ import { Store } from '@ngrx/store';
 
 import * as fromRoot from '../../../../core/reducers';
 import * as fromCreative from '../../../reducers';
-import * as postActions from '../../store/actions/post.actions'
+import * as postActions from '../../store/actions/post.actions';
 
 import { User } from '../../../../core/auth/model';
-import { Post, PostStatus }     from '../../model';
+import { Post, PostStatus } from '../../model';
 
 
 
@@ -42,8 +42,9 @@ export class PostListItemComponent implements OnInit {
   ) {
     this.user$ = this.store.select(fromRoot.getUser);
     this.user$.subscribe(afUser => {
-      if(afUser)
+      if (afUser) {
         this.user = afUser;
+      }
     });
   }
 
@@ -51,13 +52,13 @@ export class PostListItemComponent implements OnInit {
   }
 
   openRemoveDialog(post: Post) {
-    let config = new MdSnackBarConfig();
+    const config = new MdSnackBarConfig();
     config.duration = this.autoHide;
-    let dialogRef = this.postDialog.open(PostConfirmDeleteComponent);
+    const dialogRef = this.postDialog.open(PostConfirmDeleteComponent);
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.creativeStore.dispatch(new postActions.RemovePostAction({post: post}));
-        this.snackBar.open('Post Deleted','Delete',config);
+        this.snackBar.open('Post Deleted', 'Delete', config);
       }
     });
   }
