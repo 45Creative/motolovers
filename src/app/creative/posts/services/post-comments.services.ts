@@ -15,14 +15,12 @@ export class PostCommentsService {
   ) {
   }
 
-  loadPostsComments(posts$: Post[], comments$: Comment[]): Observable<PostComments[]> {
-
+  loadPostsComments(posts$: Observable<Post[]>, comments$:  Observable<Comment[]>): Observable<PostComments[]> {
     return Observable.combineLatest(posts$, comments$, (posts, comments) => {
       return posts.map( post => Object.assign({}, {post: post}, {
         comments: comments.filter(comment => comment.post === post)
       }));
     });
-
   }
 
 }

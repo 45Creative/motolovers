@@ -5,6 +5,7 @@ import { fadeInAnimation } from "../../../../route.animation";
 import { PostComponent } from '../post/post.component';
 
 import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 
 import { Store } from '@ngrx/store';
 
@@ -36,6 +37,7 @@ export class PostListComponent implements OnInit {
   postComments$: Observable<any>;
   user: User;
   posts: Post[];
+  comments: Comment[];
 
   // Hide Snackbar
   autoHide: number = 3000;
@@ -46,32 +48,29 @@ export class PostListComponent implements OnInit {
     private store: Store<fromRoot.AppState>,
     private creativeStore: Store<fromCreative.CreativeState>
   ) {
+    this.user$ = this.store.select(fromRoot.getUser);
+    this.user$.subscribe(afUser => {
+      if(afUser)
+        this.user = afUser;
+    });
+
+    this.posts$ =  this.creativeStore.select(fromCreative.getPosts);
+    this.comments$ = this.creativeStore.select(fromCreative.getComments);
+    this.postComments$ = this.creativeStore.select(fromCreative.getPostComments);
+
+  }
+
+  ngOnInit() {
+
     this.creativeStore.dispatch(
       new postActions.LoadPostAction()
     );
     this.creativeStore.dispatch(
       new commentActions.LoadCommentAction()
     );
-  }
-
-  ngOnInit() {
-
-    this.user$ = this.store.select(fromRoot.getUser);
-    const posts$: Observable<Post[]> = this.creativeStore.select(fromCreative.getPosts);
-    const comments$: Observable<Comment[]> = this.creativeStore.select(fromCreative.getComments);
-
-    /*
     this.creativeStore.dispatch(
-      new postCommentsActions.LoadPostCommentsAction(this.posts$, this.comments$)
+      new postCommentsActions.LoadPostCommentsAction({posts: this.posts$, comments: this.comments$})
     );
-    */
-
-    this.postComments$ = this.creativeStore.select(fromCreative.getPostComments);
-
-    this.user$.subscribe(afUser => {
-      if(afUser)
-        this.user = afUser;
-    });
 
     /*
     this.postComments$ = Observable.combineLatest(this.posts$, this.comments$, (posts, comments) => {

@@ -13,7 +13,7 @@ export const PostCommentsTypes = {
 export class LoadPostCommentsAction implements Action {
   type = PostCommentsTypes.LOAD_POST_COMMENTS;
 
-  constructor(public payload: null) { }
+  constructor(public payload: { posts: any, comments: any }) { }
 }
 
 export class LoadPostCommentsCompletedAction implements Action {
