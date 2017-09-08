@@ -7,7 +7,7 @@ import { type } from '../../../../core/utils/utils';
 export const PostCommentsTypes = {
   LOAD_POST_COMMENTS: type('[Post-Comments] -LOAD Requested-'),
   LOAD_POST_COMMENTS_COMPLETED: type('[Post-Comments] -LOAD SUCCESS-'),
-  LOAD_POST_COMMENTS_ERROR: type('[Post-Comments] -LOAD Error-'),
+  LOAD_POST_COMMENTS_ERROR: type('[Post-Comments] -LOAD Error-')
 };
 
 export class LoadPostCommentsAction implements Action {
@@ -19,7 +19,7 @@ export class LoadPostCommentsAction implements Action {
 export class LoadPostCommentsCompletedAction implements Action {
   type = PostCommentsTypes.LOAD_POST_COMMENTS_COMPLETED;
 
-  constructor(public payload: {postComments: PostComments[]}) { }
+  constructor(public payload: { postComments: PostComments[] }) { }
 }
 
 export class LoadPostCommentsErrorAction implements Action {

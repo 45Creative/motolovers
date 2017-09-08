@@ -7,12 +7,18 @@ export function postCommentsReducer(
 
     case PostCommentsTypes.LOAD_POST_COMMENTS: {
       return Object.assign({}, state, {
+        posts: action.payload.posts,
+        comments: action.payload.comments,
+        postComments: null,
         isLoadingPostComments: true,
+        error: null
       });
     }
 
     case PostCommentsTypes.LOAD_POST_COMMENTS_COMPLETED: {
       return Object.assign({}, state, {
+        posts: action.payload.posts,
+        comments: action.payload.comments,
         postComments: action.payload.postComments,
         isLoadingPostComments: false,
         error: null
@@ -21,6 +27,8 @@ export function postCommentsReducer(
 
     case PostCommentsTypes.LOAD_POST_COMMENTS_ERROR: {
       return Object.assign({}, state, {
+        posts: null,
+        comments: null,
         postComments: null,
         isLoadingPostComments: false,
         error: action.payload.error

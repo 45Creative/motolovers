@@ -41,7 +41,7 @@ import { PostRoutingModule } from './post-routing.module';
     AuthModule,
     StoreModule.forFeature('post', postReducer),
     StoreModule.forFeature('comment', commentReducer),
-    StoreModule.forFeature('postComment', postCommentsReducer),
+    StoreModule.forFeature('postComments', postCommentsReducer),
     EffectsModule.forFeature([PostEffects, CommentEffects, PostCommentsEffects]),
     PostRoutingModule
   ],
